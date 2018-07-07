@@ -7,25 +7,26 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | Hexo</title>
+  <title>spring bean lifestyle-BeanPostProcessor | Hexo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="haosamax,后端,java,Hexo主题,docker,git,spring" />
+    <meta name="keywords" content="Spring," />
   
 
-  <meta name="description" content=":) 国际惯例，Hello world！">
+  <meta name="description" content="spring提供了许多入口，可以让我们干预bean的整个生命周期。BeanPostProcessor就是这样一个接口，可以再bean初始化之前和初始化之后对bean进行加工处理。     // Initialize the bean instance.     Object exposedObject = bean;     try {     //依赖注入         populateBea">
+<meta name="keywords" content="Spring">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2018/07/07/hello-world/index.html">
+<meta property="og:title" content="spring bean lifestyle-BeanPostProcessor">
+<meta property="og:url" content="http://yoursite.com/2018/07/07/spring-bean-lifestyle-BeanPostProcessor/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content=":) 国际惯例，Hello world！">
+<meta property="og:description" content="spring提供了许多入口，可以让我们干预bean的整个生命周期。BeanPostProcessor就是这样一个接口，可以再bean初始化之前和初始化之后对bean进行加工处理。     // Initialize the bean instance.     Object exposedObject = bean;     try {     //依赖注入         populateBea">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-07T06:00:12.652Z">
+<meta property="og:updated_time" content="2018-07-07T12:55:57.809Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content=":) 国际惯例，Hello world！">
+<meta name="twitter:title" content="spring bean lifestyle-BeanPostProcessor">
+<meta name="twitter:description" content="spring提供了许多入口，可以让我们干预bean的整个生命周期。BeanPostProcessor就是这样一个接口，可以再bean初始化之前和初始化之后对bean进行加工处理。     // Initialize the bean instance.     Object exposedObject = bean;     try {     //依赖注入         populateBea">
 
   
 
@@ -174,9 +175,9 @@
 
 
 <div class="content content-post CENTER">
-   <article id="post-hello-world" class="article article-type-post" itemprop="blogPost">
+   <article id="post-spring-bean-lifestyle-BeanPostProcessor" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">Hello World</h1>
+    <h1 class="post-title">spring bean lifestyle-BeanPostProcessor</h1>
 
     <div class="article-meta">
       <span>
@@ -197,7 +198,7 @@
       
         <span>
           <i class="icon-comment"></i>
-          <a href="http://www.forsigner.com/2018/07/07/hello-world/#disqus_thread"></a>
+          <a href="http://www.forsigner.com/2018/07/07/spring-bean-lifestyle-BeanPostProcessor/#disqus_thread"></a>
         </span>
       
 
@@ -214,7 +215,61 @@
 
   <div class="article-content">
     
-      <p>:) 国际惯例，Hello world！</p>
+      <p>spring提供了许多入口，可以让我们干预bean的整个生命周期。BeanPostProcessor就是这样一个接口，可以再bean初始化之前和初始化之后对bean进行加工处理。</p>
+<pre><code>    // Initialize the bean instance.
+    Object exposedObject = bean;
+    try {
+    //依赖注入
+        populateBean(beanName, mbd, instanceWrapper);
+        //
+        exposedObject = initializeBean(beanName, exposedObject, mbd);
+    }
+    catch (Throwable ex) {
+        if (ex instanceof BeanCreationException &amp;&amp; beanName.equals(((BeanCreationException) ex).getBeanName())) {
+            throw (BeanCreationException) ex;
+        }
+        else {
+            throw new BeanCreationException(
+                    mbd.getResourceDescription(), beanName, &quot;Initialization of bean failed&quot;, ex);
+        }
+    }
+
+Object result = existingBean;
+    for (BeanPostProcessor beanProcessor : getBeanPostProcessors()) {
+        Object current = beanProcessor.postProcessAfterInitialization(result, beanName);
+        if (current == null) {
+            return result;
+        }
+        result = current;
+    }
+</code></pre><p><br>最近一个实习生找我解决一个问题，在按照套路该配置的配置文件都配置了，该写的实现类也写了，但是项目启动，最后请求从前台到后台，没有找到服务？讲道理我也是没有注意过这些问题，之前就是按照套路配置就可以了，为了那啥，我就坐debug了一番。最后在后台接受到请求，去找对应的服务实现类的时候没找到？本着寻本溯源的思想，我们要看看他怎么没找这个实现类。</p>
+<pre><code>    // Check data before further processing callbackServiceRegistry
+    CallbackService&lt;?, ?&gt; service = callbackServiceRegistry.getService(requestContext.getRequestServiceId());
+
+public class CallbackServiceRegistry implements BeanPostProcessor {
+
+protected Log log = LogFactory.getLog(this.getClass());
+private ConcurrentHashMap&lt;String, CallbackService&lt;?, ?&gt;&gt; callbackServices = new ConcurrentHashMap&lt;String, CallbackService&lt;?, ?&gt;&gt;();
+
+public CallbackService&lt;?, ?&gt; getService(String name) {
+    return callbackServices.get(name);
+}
+
+    @Override
+public Object postProcessAfterInitialization(Object bean, String name)
+        throws BeansException {
+    if (bean instanceof CallbackService) {
+        if (this.log.isDebugEnabled()) {
+            this.log
+                    .debug(&quot;Invoking CallbackService on ProductResolver bean &apos;&quot;
+                            + name + &quot;&apos;&quot;);
+        }
+        this.onBind((CallbackService) bean, name);
+    }
+
+    return bean;
+}
+</code></pre><p><br>可以看到他是从一个map中根据服务id获取实现类的。这个registry实现了BeanPostProcessor接口，在bean初始化之后把实现了CallbackService的接口放到map中。再看他的实现类没有实现CallbackService接口，而是实现了QueryService接口，所以从map中无法获取实现类，所以报错。<br>至此，明白了为什么要这么配置，才能生效。同时也学会了debug找问题。一年了，仿佛和一切就在一瞬间就通了，很享受这中debug找问题的过程，以为这样可以让我对整个流程很清楚。这么晚才开窍，也够笨的了~，::&gt;_&lt;::</p>
 
     
   </div>
@@ -252,10 +307,10 @@
 
    
   <div class="box-prev-next clearfix">
-    <a class="hide pull-left" href="/">
+    <a class="show pull-left" href="/2018/07/07/hello-world/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="show pull-right" href="/2018/07/07/spring-bean-lifestyle-BeanPostProcessor/">
+    <a class="hide pull-right" href="/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
@@ -373,7 +428,7 @@
   <script>
     var disqus_shortname = 'forsigner';
     
-    var disqus_url = 'http://yoursite.com/2018/07/07/hello-world/';
+    var disqus_url = 'http://yoursite.com/2018/07/07/spring-bean-lifestyle-BeanPostProcessor/';
     
     (function(){
       var dsq = document.createElement('script');

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-07-07T06:00:12.652Z</updated>
+  <updated>2018-07-07T12:55:57.809Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>spring bean lifestyle-BeanPostProcessor</title>
+    <link href="http://yoursite.com/2018/07/07/spring-bean-lifestyle-BeanPostProcessor/"/>
+    <id>http://yoursite.com/2018/07/07/spring-bean-lifestyle-BeanPostProcessor/</id>
+    <published>2018-07-07T12:19:35.000Z</published>
+    <updated>2018-07-07T12:55:57.809Z</updated>
+    
+    <content type="html"><![CDATA[<p>spring提供了许多入口，可以让我们干预bean的整个生命周期。BeanPostProcessor就是这样一个接口，可以再bean初始化之前和初始化之后对bean进行加工处理。</p><pre><code>    // Initialize the bean instance.    Object exposedObject = bean;    try {    //依赖注入        populateBean(beanName, mbd, instanceWrapper);        //        exposedObject = initializeBean(beanName, exposedObject, mbd);    }    catch (Throwable ex) {        if (ex instanceof BeanCreationException &amp;&amp; beanName.equals(((BeanCreationException) ex).getBeanName())) {            throw (BeanCreationException) ex;        }        else {            throw new BeanCreationException(                    mbd.getResourceDescription(), beanName, &quot;Initialization of bean failed&quot;, ex);        }    }Object result = existingBean;    for (BeanPostProcessor beanProcessor : getBeanPostProcessors()) {        Object current = beanProcessor.postProcessAfterInitialization(result, beanName);        if (current == null) {            return result;        }        result = current;    }</code></pre><p><br>最近一个实习生找我解决一个问题，在按照套路该配置的配置文件都配置了，该写的实现类也写了，但是项目启动，最后请求从前台到后台，没有找到服务？讲道理我也是没有注意过这些问题，之前就是按照套路配置就可以了，为了那啥，我就坐debug了一番。最后在后台接受到请求，去找对应的服务实现类的时候没找到？本着寻本溯源的思想，我们要看看他怎么没找这个实现类。</p><pre><code>    // Check data before further processing callbackServiceRegistry    CallbackService&lt;?, ?&gt; service = callbackServiceRegistry.getService(requestContext.getRequestServiceId());public class CallbackServiceRegistry implements BeanPostProcessor {protected Log log = LogFactory.getLog(this.getClass());private ConcurrentHashMap&lt;String, CallbackService&lt;?, ?&gt;&gt; callbackServices = new ConcurrentHashMap&lt;String, CallbackService&lt;?, ?&gt;&gt;();public CallbackService&lt;?, ?&gt; getService(String name) {    return callbackServices.get(name);}    @Overridepublic Object postProcessAfterInitialization(Object bean, String name)        throws BeansException {    if (bean instanceof CallbackService) {        if (this.log.isDebugEnabled()) {            this.log                    .debug(&quot;Invoking CallbackService on ProductResolver bean &apos;&quot;                            + name + &quot;&apos;&quot;);        }        this.onBind((CallbackService) bean, name);    }    return bean;}</code></pre><p><br>可以看到他是从一个map中根据服务id获取实现类的。这个registry实现了BeanPostProcessor接口，在bean初始化之后把实现了CallbackService的接口放到map中。再看他的实现类没有实现CallbackService接口，而是实现了QueryService接口，所以从map中无法获取实现类，所以报错。<br>至此，明白了为什么要这么配置，才能生效。同时也学会了debug找问题。一年了，仿佛和一切就在一瞬间就通了，很享受这中debug找问题的过程，以为这样可以让我对整个流程很清楚。这么晚才开窍，也够笨的了~，::&gt;_&lt;::</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;spring提供了许多入口，可以让我们干预bean的整个生命周期。BeanPostProcessor就是这样一个接口，可以再bean初始化之前和初始化之后对bean进行加工处理。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    // Initialize the bean insta
+      
+    
+    </summary>
+    
+    
+      <category term="Spring" scheme="http://yoursite.com/tags/Spring/"/>
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>

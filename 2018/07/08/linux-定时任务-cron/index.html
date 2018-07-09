@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>linux 定时任务 cron | Hexo</title>
+  <title>linux 定时任务 cron | Haosamax</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -15,19 +15,19 @@
     <meta name="keywords" content="linux," />
   
 
-  <meta name="description" content="前端时间有个任务，为了配合测试，要再周末把服务器时间切到下周一。不能用远程，只能写一个定时任务来执行切日期的shell了。 ####crond简介crond是linux下用来周期性的执行某种任务或等待处理某些事件的一个守护进程，与windows下的计划任务类似，当安装完成操作系统后，默认会安装此服务工具，并且会自动启动crond进程，crond进程每分钟会定期检查是否有要执行的任务，如果有要执行的">
+  <meta name="description" content="前段时间有个任务，为了配合测试，要再周末把服务器时间切到下周一。不能用远程，只能写一个定时任务来执行切日期的shell了。 crond简介crond是linux下用来周期性的执行某种任务或等待处理某些事件的一个守护进程，与windows下的计划任务类似，当安装完成操作系统后，默认会安装此服务工具，并且会自动启动crond进程，crond进程每分钟会定期检查是否有要执行的任务，如果有要执行的任务，则">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux 定时任务 cron">
 <meta property="og:url" content="http://yoursite.com/2018/07/08/linux-定时任务-cron/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="前端时间有个任务，为了配合测试，要再周末把服务器时间切到下周一。不能用远程，只能写一个定时任务来执行切日期的shell了。 ####crond简介crond是linux下用来周期性的执行某种任务或等待处理某些事件的一个守护进程，与windows下的计划任务类似，当安装完成操作系统后，默认会安装此服务工具，并且会自动启动crond进程，crond进程每分钟会定期检查是否有要执行的任务，如果有要执行的">
+<meta property="og:site_name" content="Haosamax">
+<meta property="og:description" content="前段时间有个任务，为了配合测试，要再周末把服务器时间切到下周一。不能用远程，只能写一个定时任务来执行切日期的shell了。 crond简介crond是linux下用来周期性的执行某种任务或等待处理某些事件的一个守护进程，与windows下的计划任务类似，当安装完成操作系统后，默认会安装此服务工具，并且会自动启动crond进程，crond进程每分钟会定期检查是否有要执行的任务，如果有要执行的任务，则">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://images0.cnblogs.com/blog/34483/201301/08090352-4e0aa3fe4f404b3491df384758229be1.png">
-<meta property="og:updated_time" content="2018-07-08T04:12:08.577Z">
+<meta property="og:updated_time" content="2018-07-08T04:13:55.148Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux 定时任务 cron">
-<meta name="twitter:description" content="前端时间有个任务，为了配合测试，要再周末把服务器时间切到下周一。不能用远程，只能写一个定时任务来执行切日期的shell了。 ####crond简介crond是linux下用来周期性的执行某种任务或等待处理某些事件的一个守护进程，与windows下的计划任务类似，当安装完成操作系统后，默认会安装此服务工具，并且会自动启动crond进程，crond进程每分钟会定期检查是否有要执行的任务，如果有要执行的">
+<meta name="twitter:description" content="前段时间有个任务，为了配合测试，要再周末把服务器时间切到下周一。不能用远程，只能写一个定时任务来执行切日期的shell了。 crond简介crond是linux下用来周期性的执行某种任务或等待处理某些事件的一个守护进程，与windows下的计划任务类似，当安装完成操作系统后，默认会安装此服务工具，并且会自动启动crond进程，crond进程每分钟会定期检查是否有要执行的任务，如果有要执行的任务，则">
 <meta name="twitter:image" content="https://images0.cnblogs.com/blog/34483/201301/08090352-4e0aa3fe4f404b3491df384758229be1.png">
 
   
@@ -174,6 +174,11 @@
 </div>
 
 
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#crond简介"><span class="toc-text">crond简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#crontab文件的含义："><span class="toc-text">crontab文件的含义：</span></a></li></ol>
+  </div>
+
 
 
 <div class="content content-post CENTER">
@@ -212,10 +217,9 @@
 
   <div class="article-content">
     
-      <p>前端时间有个任务，为了配合测试，要再周末把服务器时间切到下周一。不能用远程，只能写一个定时任务来执行切日期的shell了。</p>
-<p>####crond简介<br>crond是linux下用来周期性的执行某种任务或等待处理某些事件的一个守护进程，与windows下的计划任务类似，当安装完成操作系统后，默认会安装此服务工具，<br>并且会自动启动crond进程，crond进程每分钟会定期检查是否有要执行的任务，如果有要执行的任务，则自动执行该任务。<br>Linux下的任务调度分为两类，系统任务调度和用户任务调度。<br>系统任务调度：系统周期性所要执行的工作，比如写缓存数据到硬盘、日志清理等。在/etc目录下有一个crontab文件，这个就是系统任务调度的配置文件<br>用户任务调度：用户定期要执行的工作，比如用户数据备份、定时邮件提醒等。用户可以使用 crontab 工具来定制自己的计划任务。所有用户定义的crontab 文件都被保存在 /var/spool/cron目录中。其文件名与用户名一致。</p>
-<p>####crontab文件的含义：</p>
-<p>用户所建立的crontab文件中，每一行都代表一项任务，每行的每个字段代表一项设置，它的格式共分为六个字段，前五段是时间设定段，第六段是要执行的命令段，格式如下：</p>
+      <p>前段时间有个任务，为了配合测试，要再周末把服务器时间切到下周一。不能用远程，只能写一个定时任务来执行切日期的shell了。</p>
+<h3 id="crond简介"><a href="#crond简介" class="headerlink" title="crond简介"></a>crond简介</h3><p>crond是linux下用来周期性的执行某种任务或等待处理某些事件的一个守护进程，与windows下的计划任务类似，当安装完成操作系统后，默认会安装此服务工具，<br>并且会自动启动crond进程，crond进程每分钟会定期检查是否有要执行的任务，如果有要执行的任务，则自动执行该任务。<br>Linux下的任务调度分为两类，系统任务调度和用户任务调度。<br>系统任务调度：系统周期性所要执行的工作，比如写缓存数据到硬盘、日志清理等。在/etc目录下有一个crontab文件，这个就是系统任务调度的配置文件<br>用户任务调度：用户定期要执行的工作，比如用户数据备份、定时邮件提醒等。用户可以使用 crontab 工具来定制自己的计划任务。所有用户定义的crontab 文件都被保存在 /var/spool/cron目录中。其文件名与用户名一致。</p>
+<h3 id="crontab文件的含义："><a href="#crontab文件的含义：" class="headerlink" title="crontab文件的含义："></a>crontab文件的含义：</h3><p>用户所建立的crontab文件中，每一行都代表一项任务，每行的每个字段代表一项设置，它的格式共分为六个字段，前五段是时间设定段，第六段是要执行的命令段，格式如下：</p>
 <p>minute   hour   day   month   week   command</p>
 <p>其中：<br>minute： 表示分钟，可以是从0到59之间的任何整数。<br>hour：表示小时，可以是从0到23之间的任何整数。<br>day：表示日期，可以是从1到31之间的任何整数。<br>month：表示月份，可以是从1到12之间的任何整数。<br>week：表示星期几，可以是从0到7之间的任何整数，这里的0或7代表星期日。<br>command：要执行的命令，可以是系统命令，也可以是自己编写的脚本文件</p>
 <p><img src="https://images0.cnblogs.com/blog/34483/201301/08090352-4e0aa3fe4f404b3491df384758229be1.png" alt=""></p>

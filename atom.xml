@@ -45,12 +45,22 @@
     <link href="http://yoursite.com/2018/07/14/spring-cache/"/>
     <id>http://yoursite.com/2018/07/14/spring-cache/</id>
     <published>2018-07-14T01:42:23.000Z</published>
-    <updated>2018-07-14T01:42:23.605Z</updated>
+    <updated>2018-07-16T09:58:29.049Z</updated>
+    
+    <content type="html"><![CDATA[<p>spring支持各种缓存，基于aop，ehcache、redis、memcached。如果你不满意可以自己实现cachemanager</p><h3 id="看一下几个注解："><a href="#看一下几个注解：" class="headerlink" title="看一下几个注解："></a>看一下几个注解：</h3><p>@Cacheable、@CachePut、@CacheEvict</p><h4 id="Cacheable-的作用：主要针对方法配置，能够根据方法的请求参数对其结果进行缓存"><a href="#Cacheable-的作用：主要针对方法配置，能够根据方法的请求参数对其结果进行缓存" class="headerlink" title="@Cacheable 的作用：主要针对方法配置，能够根据方法的请求参数对其结果进行缓存"></a>@Cacheable 的作用：主要针对方法配置，能够根据方法的请求参数对其结果进行缓存</h4><p>1、value：缓存的名称，在 spring 配置文件中定义，必须指定至少一个<br>    例如：@Cacheable(value=”mycache”) 或者 @Cacheable(value={”cache1”,”cache2”}<br>2、key：缓存的 key，可以为空，如果指定要按照 SpEL 表达式编写，如果不指定，则缺省按照方法的所有参数进行组合<br>    例如：@Cacheable(value=”testcache”,key=”#userName”)<br>3、condition：缓存的条件，可以为空，使用 SpEL 编写，返回 true 或者 false，只有为 true 才进行缓存<br>    例如：@Cacheable(value=”testcache”,condition=”#userName.length()&gt;2”)</p><h4 id="CachePut-的作用：主要针对方法配置，能够根据方法的请求参数对其结果进行缓存，和-Cacheable-不同的是，它每次都会触发真实方法的调用"><a href="#CachePut-的作用：主要针对方法配置，能够根据方法的请求参数对其结果进行缓存，和-Cacheable-不同的是，它每次都会触发真实方法的调用" class="headerlink" title="@CachePut 的作用：主要针对方法配置，能够根据方法的请求参数对其结果进行缓存，和 @Cacheable 不同的是，它每次都会触发真实方法的调用"></a>@CachePut 的作用：主要针对方法配置，能够根据方法的请求参数对其结果进行缓存，和 @Cacheable 不同的是，它每次都会触发真实方法的调用</h4><p>1、value：缓存的名称，在 spring 配置文件中定义，必须指定至少一个<br>    例如：@Cacheable(value=”mycache”) 或者 @Cacheable(value={”cache1”,”cache2”}<br>2、key：缓存的 key，可以为空，如果指定要按照 SpEL 表达式编写，如果不指定，则缺省按照方法的所有参数进行组合<br>    例如：@Cacheable(value=”testcache”,key=”#userName”)<br>3、condition：缓存的条件，可以为空，使用 SpEL 编写，返回 true 或者 false，只有为 true 才进行缓存<br>    例如：Cacheable(value=”testcache”,condition=”#userName.length()&gt;2”)</p><h4 id="CachEvict-的作用：主要针对方法配置，能够根据一定的条件对缓存进行清空"><a href="#CachEvict-的作用：主要针对方法配置，能够根据一定的条件对缓存进行清空" class="headerlink" title="@CachEvict 的作用：主要针对方法配置，能够根据一定的条件对缓存进行清空"></a>@CachEvict 的作用：主要针对方法配置，能够根据一定的条件对缓存进行清空</h4><p>1、value：缓存的名称，在 spring 配置文件中定义，必须指定至少一个<br>    例如：@Cacheable(value=”mycache”) 或者 @Cacheable(value={”cache1”,”cache2”}<br>2、key：缓存的 key，可以为空，如果指定要按照 SpEL 表达式编写，如果不指定，则缺省按照方法的所有参数进行组合<br>    例如：@Cacheable(value=”testcache”,key=”#userName”)<br>3、condition：缓存的条件，可以为空，使用 SpEL 编写，返回 true 或者 false，只有为 true 才进行缓存<br>    例如：Cacheable(value=”testcache”,condition=”#userName.length()&gt;2”)<br>4、allEntries：是否清空所有缓存内容，缺省为 false，如果指定为 true，则方法调用后将立即清空所有缓存<br>    例如：@CachEvict(value=”testcache”,allEntries=true)<br>5、beforeInvocation：是否在方法执行前就清空，缺省为 false，如果指定为 true，则在方法还没有执行的时候就清空缓存，缺省情况下，如果方法执行抛出异常，则不会清空缓存<br>    例如：@CachEvict(value=”testcache”，beforeInvocation=true)</p><p>要想实现自己的缓存策略：要继承AbstractCacheManager类(用来管理Cache实例的类)，并且实现Cache接口</p>]]></content>
     
     <summary type="html">
     
+      
+      
+        &lt;p&gt;spring支持各种缓存，基于aop，ehcache、redis、memcached。如果你不满意可以自己实现cachemanager&lt;/p&gt;
+&lt;h3 id=&quot;看一下几个注解：&quot;&gt;&lt;a href=&quot;#看一下几个注解：&quot; class=&quot;headerlink&quot; title=&quot;看
+      
+    
     </summary>
     
+    
+      <category term="spring,cache" scheme="http://yoursite.com/tags/spring-cache/"/>
     
   </entry>
   

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-07-14T05:30:59.222Z</updated>
+  <updated>2018-07-21T10:06:13.006Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,13 +17,27 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>java 定时任务</title>
+    <link href="http://yoursite.com/2018/07/21/java-%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/"/>
+    <id>http://yoursite.com/2018/07/21/java-定时任务/</id>
+    <published>2018-07-21T10:06:12.000Z</published>
+    <updated>2018-07-21T10:06:13.006Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>git 笔记</title>
     <link href="http://yoursite.com/2018/07/14/git-%E7%AC%94%E8%AE%B0/"/>
     <id>http://yoursite.com/2018/07/14/git-笔记/</id>
     <published>2018-07-14T03:38:04.000Z</published>
-    <updated>2018-07-14T05:30:59.222Z</updated>
+    <updated>2018-07-21T10:06:22.561Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="git本地仓库常用命令"><a href="#git本地仓库常用命令" class="headerlink" title="git本地仓库常用命令"></a>git本地仓库常用命令</h3><p>git init:初始化git仓库</p><p>git add <file>:添加文件到暂存区</file></p><p>git commit -m “message”:提交到本地仓库</p><p>git log:查看版本库状态</p><p>git reflog:查看提交修改历史</p><p>git reset –hard HEAD~n:回到前n个版本<br>    (git reset –hard HEAD:放弃当前未commit的修改)<br>或<br>git reset –hard commit_id:回到某个版本</p><p>git diff HEAD <file>:比较当前工作区和仓库文件</file></p><p>git checkout – <file>:放弃当前未add到暂存区的修改</file></p><p>git add/rm <file><br>git commit -m “message”:删除仓库文件</file></p><h3 id="与远程仓库交互命令"><a href="#与远程仓库交互命令" class="headerlink" title="与远程仓库交互命令"></a>与远程仓库交互命令</h3><p>git remote add origin <a href="https://github.com/haosamax/learngit.git:本地仓库与远程仓库连接" target="_blank" rel="noopener">https://github.com/haosamax/learngit.git:本地仓库与远程仓库连接</a></p><p>git push -u origin master:把当前分支master推送到远程<br>(由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，<br>还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令)</p><p>git push origin maste:推送本地提交内容</p><p>git clone:clone远程仓库到本地</p><h3 id="分支相关命令"><a href="#分支相关命令" class="headerlink" title="分支相关命令"></a>分支相关命令</h3><p>git checkout -b dev:创建dev分支并切换到当前分支(-b:表示创建并切换=git branch dev;git checkout dev)</p><p>git checkout master:切换到master</p><p>git branch:查看所有分支</p><p>git branch -d dev:删除dev分支</p><p>git merge dev:当前分支和dev分支合并<br>(有冲突，需处理冲突文件，再提交;默认Git会用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息)</p><p>git log –graph –pretty=oneline –abbrev-commit:查看分支合并情况</p><p>git merge –no-ff -m “merge uat with no ff” uat:合并uat(–no-ff方式的git merge:强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息,)</p><h2 id="结课"><a href="#结课" class="headerlink" title="结课!!!"></a>结课!!!</h2>]]></content>
+    <content type="html"><![CDATA[<h3 id="git本地仓库常用命令"><a href="#git本地仓库常用命令" class="headerlink" title="git本地仓库常用命令"></a>git本地仓库常用命令</h3><p>git init:初始化git仓库</p><p>git add <file>:添加文件到暂存区</file></p><p>git commit -m “message”:提交到本地仓库</p><p>git log:查看版本库状态</p><p>git reflog:查看提交修改历史</p><p>git reset - -hard HEAD~n:回到前n个版本<br>    (git reset - -hard HEAD:放弃当前未commit的修改)<br>或<br>git reset - -hard commit_id:回到某个版本</p><p>git diff HEAD <file>:比较当前工作区和仓库文件</file></p><p>git checkout - - <file>:放弃当前未add到暂存区的修改</file></p><p>git add/rm <file><br>git commit -m “message”:删除仓库文件</file></p><h3 id="与远程仓库交互命令"><a href="#与远程仓库交互命令" class="headerlink" title="与远程仓库交互命令"></a>与远程仓库交互命令</h3><p>git remote add origin <a href="https://github.com/haosamax/learngit.git:本地仓库与远程仓库连接" target="_blank" rel="noopener">https://github.com/haosamax/learngit.git:本地仓库与远程仓库连接</a></p><p>git push -u origin master:把当前分支master推送到远程<br>(由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，<br>还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令)</p><p>git push origin maste:推送本地提交内容</p><p>git clone:clone远程仓库到本地</p><h3 id="分支相关命令"><a href="#分支相关命令" class="headerlink" title="分支相关命令"></a>分支相关命令</h3><p>git checkout -b dev:创建dev分支并切换到当前分支(-b:表示创建并切换=git branch dev;git checkout dev)</p><p>git checkout master:切换到master</p><p>git branch:查看所有分支</p><p>git branch -d dev:删除dev分支</p><p>git merge dev:当前分支和dev分支合并<br>(有冲突，需处理冲突文件，再提交;默认Git会用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息)</p><p>git log - -graph - -pretty=oneline - -abbrev-commit:查看分支合并情况</p><p>git merge - -no-ff -m “merge uat with no ff” uat:合并uat(- -no-ff方式的git merge:强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息,)</p><h2 id="结课"><a href="#结课" class="headerlink" title="结课!!!"></a>结课!!!</h2>]]></content>
     
     <summary type="html">
     

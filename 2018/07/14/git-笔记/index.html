@@ -15,18 +15,18 @@
     <meta name="keywords" content="Git," />
   
 
-  <meta name="description" content="git本地仓库常用命令git init:初始化git仓库 git add :添加文件到暂存区 git commit -m “message”:提交到本地仓库 git log:查看版本库状态 git reflog:查看提交修改历史 git reset –hard HEAD~n:回到前n个版本    (git reset –hard HEAD:放弃当前未commit的修改)或git reset –ha">
+  <meta name="description" content="git本地仓库常用命令git init:初始化git仓库 git add :添加文件到暂存区 git commit -m “message”:提交到本地仓库 git log:查看版本库状态 git reflog:查看提交修改历史 git reset - -hard HEAD~n:回到前n个版本    (git reset - -hard HEAD:放弃当前未commit的修改)或git reset">
 <meta name="keywords" content="Git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git 笔记">
 <meta property="og:url" content="http://yoursite.com/2018/07/14/git-笔记/index.html">
 <meta property="og:site_name" content="Haosamax">
-<meta property="og:description" content="git本地仓库常用命令git init:初始化git仓库 git add :添加文件到暂存区 git commit -m “message”:提交到本地仓库 git log:查看版本库状态 git reflog:查看提交修改历史 git reset –hard HEAD~n:回到前n个版本    (git reset –hard HEAD:放弃当前未commit的修改)或git reset –ha">
+<meta property="og:description" content="git本地仓库常用命令git init:初始化git仓库 git add :添加文件到暂存区 git commit -m “message”:提交到本地仓库 git log:查看版本库状态 git reflog:查看提交修改历史 git reset - -hard HEAD~n:回到前n个版本    (git reset - -hard HEAD:放弃当前未commit的修改)或git reset">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-07-14T05:30:59.222Z">
+<meta property="og:updated_time" content="2018-07-21T10:06:22.561Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git 笔记">
-<meta name="twitter:description" content="git本地仓库常用命令git init:初始化git仓库 git add :添加文件到暂存区 git commit -m “message”:提交到本地仓库 git log:查看版本库状态 git reflog:查看提交修改历史 git reset –hard HEAD~n:回到前n个版本    (git reset –hard HEAD:放弃当前未commit的修改)或git reset –ha">
+<meta name="twitter:description" content="git本地仓库常用命令git init:初始化git仓库 git add :添加文件到暂存区 git commit -m “message”:提交到本地仓库 git log:查看版本库状态 git reflog:查看提交修改历史 git reset - -hard HEAD~n:回到前n个版本    (git reset - -hard HEAD:放弃当前未commit的修改)或git reset">
 
   
 
@@ -220,9 +220,9 @@
 <p>git commit -m “message”:提交到本地仓库</p>
 <p>git log:查看版本库状态</p>
 <p>git reflog:查看提交修改历史</p>
-<p>git reset –hard HEAD~n:回到前n个版本<br>    (git reset –hard HEAD:放弃当前未commit的修改)<br>或<br>git reset –hard commit_id:回到某个版本</p>
+<p>git reset - -hard HEAD~n:回到前n个版本<br>    (git reset - -hard HEAD:放弃当前未commit的修改)<br>或<br>git reset - -hard commit_id:回到某个版本</p>
 <p>git diff HEAD <file>:比较当前工作区和仓库文件</file></p>
-<p>git checkout – <file>:放弃当前未add到暂存区的修改</file></p>
+<p>git checkout - - <file>:放弃当前未add到暂存区的修改</file></p>
 <p>git add/rm <file><br>git commit -m “message”:删除仓库文件</file></p>
 <h3 id="与远程仓库交互命令"><a href="#与远程仓库交互命令" class="headerlink" title="与远程仓库交互命令"></a>与远程仓库交互命令</h3><p>git remote add origin <a href="https://github.com/haosamax/learngit.git:本地仓库与远程仓库连接" target="_blank" rel="noopener">https://github.com/haosamax/learngit.git:本地仓库与远程仓库连接</a></p>
 <p>git push -u origin master:把当前分支master推送到远程<br>(由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，<br>还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令)</p>
@@ -233,8 +233,8 @@
 <p>git branch:查看所有分支</p>
 <p>git branch -d dev:删除dev分支</p>
 <p>git merge dev:当前分支和dev分支合并<br>(有冲突，需处理冲突文件，再提交;默认Git会用Fast forward模式，但这种模式下，删除分支后，会丢掉分支信息)</p>
-<p>git log –graph –pretty=oneline –abbrev-commit:查看分支合并情况</p>
-<p>git merge –no-ff -m “merge uat with no ff” uat:合并uat(–no-ff方式的git merge:强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息,)</p>
+<p>git log - -graph - -pretty=oneline - -abbrev-commit:查看分支合并情况</p>
+<p>git merge - -no-ff -m “merge uat with no ff” uat:合并uat(- -no-ff方式的git merge:强制禁用Fast forward模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息,)</p>
 <h2 id="结课"><a href="#结课" class="headerlink" title="结课!!!"></a>结课!!!</h2>
     
   </div>
@@ -275,7 +275,7 @@
     <a class="show pull-left" href="/2018/07/14/spring-cache/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="hide pull-right" href="/">
+    <a class="show pull-right" href="/2018/07/21/java-定时任务/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
